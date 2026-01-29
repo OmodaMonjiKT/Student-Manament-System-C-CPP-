@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login / Register</title>
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1e88e5, #42a5f5);
+}
+
+.card {
+  width: 350px;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.title {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #1e88e5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1565c0;
+}
+
+.switch {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.switch span {
+  color: #1e88e5;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.password-toggle {
+  position: relative;
+}
+
+.password-toggle span {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <div class="title" id="formTitle">Login</div>
+
+  <div class="error" id="errorMsg"></div>
+
+  <!-- LOGIN -->
+  <div id="loginForm">
+    <input type="text" id="loginUser" placeholder="Username or Email">
+    <div class="password-toggle">
+      <input type="password" id="loginPass" placeholder="Password">
+      <span onclick="togglePass('loginPass')">👁</span>
+    </div>
+    <button onclick="login()">Login</button>
+  </div>
+
+  <!-- REGISTER -->
+  <div id="registerForm" style="display:none;">
+    <input type="text" id="regUser" placeholder="Username">
+    <input type="email" id="regEmail" placeholder="Email">
+    <div class="password-toggle">
+      <input type="password" id="regPass" placeholder="Password">
+      <span onclick="togglePass('regPass')">👁</span>
+    </div>
+    <button onclick="register()">Register</button>
+  </div>
+
+  <div class="switch">
+    <span id="switchText" onclick="switchForm()">Create account</span>
+  </div>
+</div>
+
+<script>
+let isLogin = true;
+
+function switchForm() {
+  isLogin = !isLogin;
+  document.getElementById("loginForm").style.display = isLogin ? "block" : "none";
+  document.getElementById("registerForm").style.display = isLogin ? "none" : "block";
+  document.getElementById("formTitle").innerText = isLogin ? "Login" : "Register";
+  document.getElementById("switchText").innerText = isLogin
+    ? "Create account"
+    : "Already have an account?";
+  document.getElementById("errorMsg").innerText = "";
+}
+
+function togglePass(id) {
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
+}
+
+function login() {
+  const user = loginUser.value.trim();
+  const pass = loginPass.value.trim();
+
+  if (!user || !pass) {
+    showError("Please fill all fields");
+    return;
+  }else{
+    window.location.href = "./Ui/index.html";
+  }
+
+  
+}
+
+function register() {
+  const user = regUser.value.trim();
+  const email = regEmail.value.trim();
+  const pass = regPass.value.trim();
+
+  if (!user || !email || !pass) {
+    showError("Please fill all fields");
+    return;
+  }else{
+    window.location.href = "./Ui/index.html";
+  }
+
+ 
+}
+
+function showError(msg) {
+  document.getElementById("errorMsg").innerText = msg;
+}
+</script>
+
+</body>
+</html>
